@@ -1,15 +1,12 @@
 '''
-Descripttion: 
+Descripttion: MinIO操作工具函数，包括客户端初始化、文件上传等功能
 Author: Joe Guo
 version: 
 Date: 2025-07-25 16:59:03
 LastEditors: Joe Guo
 LastEditTime: 2025-07-25 16:59:09
 '''
-'''
-MinIO操作工具函数
-包括客户端初始化、文件上传等功能
-'''
+
 import logging
 import datetime
 from pathlib import Path
@@ -53,17 +50,20 @@ def upload_to_minio(request_id: str, file_path: Path, object_prefix: str = "") -
     返回:
         预签名的文件URL
     """
+    # 构建对象名，包含日期、请求ID、前缀和文件名
     today = datetime.date.today().isoformat()
     object_name = f"{today}/{request_id}/{object_prefix}/{file_path.name}"
     
     try:
         logger.info(f"准备上传文件到MinIO: {file_path} -> {object_name}")
+        # 上传文件
         minio_client.fput_object(
             MINIO_BUCKET,
             object_name,
             str(file_path)
         )
         
+        # 获取预签名下载链接
         presigned_url = minio_client.presigned_get_object(
             MINIO_BUCKET,
             object_name,
@@ -90,6 +90,7 @@ def upload_directory_to_minio(request_id: str, dir_path: Path, prefix: str = "")
     """
     result = {}
     
+    # 遍历目录下所有文件，递归上传
     for file_path in dir_path.rglob("*"):
         if file_path.is_file():
             rel_path = file_path.relative_to(dir_path)

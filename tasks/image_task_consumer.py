@@ -1,7 +1,12 @@
 '''
-图片描述任务消费者
-负责处理图片描述任务队列中的任务
+Descripttion: 图片描述任务消费者，负责处理图片描述任务队列中的任务
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:24
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:13:14
 '''
+
 import logging
 import json
 import asyncio
@@ -53,7 +58,7 @@ async def process_image_description_task(task):
             task.get("libreoffice_path")
         )
         
-        # 加载Qwen模型
+        # 加载Qwen模型和处理器
         model, processor = load_qwen_model()
         
         # 根据文件类型处理
@@ -61,7 +66,7 @@ async def process_image_description_task(task):
         descriptions = []
         
         if file_type == 'pdf' or preprocessed["converted_to_pdf"]:
-            # 处理PDF文件
+            # 处理PDF文件，提取图片并生成描述
             descriptions = extract_images_from_pdf(
                 str(preprocessed["processed_path"]),
                 model=model,
@@ -126,7 +131,7 @@ async def process_image_description_task(task):
             shutil.rmtree(output_dir)
             logger.info(f"清理临时目录: {output_dir}")
         
-        # redis_client.set(IMAGE_TASK_RESULT_KEY_PREFIX + request_id, json.dumps(result))
+        # 将结果推送到Redis队列
         redis_client.rpush(IMAGE_TASK_RESULT_KEY_PREFIX + request_id, json.dumps(result))
         return result
         
@@ -145,7 +150,7 @@ async def process_image_description_task(task):
             "request_id": request_id,
             "error": str(e)
         }
-        # redis_client.set(IMAGE_TASK_RESULT_KEY_PREFIX + request_id, json.dumps(error_result))
+        # 推送错误结果到Redis队列
         redis_client.rpush(IMAGE_TASK_RESULT_KEY_PREFIX + request_id, json.dumps(error_result))
         return error_result
 

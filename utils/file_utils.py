@@ -1,7 +1,12 @@
 '''
-文件处理相关工具函数
-包括文件类型判断、文件预处理等功能
+Descripttion: 文件处理相关工具函数，包括文件类型判断、文件预处理等功能
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:22
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:13:41
 '''
+
 from pathlib import Path
 from typing import Optional, Dict, Any
 import logging
@@ -20,6 +25,7 @@ def get_file_type(file_path: Path) -> Optional[str]:
         文件类型字符串或None(不支持的类型)
     """
     file_ext = file_path.suffix.lower()
+    # 遍历支持的类型，判断扩展名
     for type_name, extensions in SUPPORTED_FILE_TYPES.items():
         if file_ext in extensions:
             return type_name
@@ -50,6 +56,7 @@ def is_core_file(file_path: Path) -> bool:
     core_extensions = {".md", ".txt", ".json"}
     non_core_dirs = {"images", "layout", "intermediate"}
     
+    # 跳过非核心目录下的文件
     if any(part in non_core_dirs for part in file_path.parts):
         return False
     

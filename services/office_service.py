@@ -1,7 +1,12 @@
 '''
-Office文档转PDF服务
-提供Office文件到PDF的转换功能
+Descripttion: Office文档转PDF服务，提供Office文件到PDF的转换功能
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:23
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:12:49
 '''
+
 import logging
 import subprocess
 import os
@@ -21,6 +26,7 @@ def find_libreoffice_path():
     system = platform.system()
     logger.info(f"正在检测操作系统: {system}，查找LibreOffice路径")
     
+    # 针对不同操作系统，列举常见的LibreOffice安装路径
     if system == "Windows":
         possible_paths = [
             "C:/Program Files/LibreOffice/program/soffice.exe",
@@ -62,7 +68,7 @@ def convert_to_pdf(input_file, libreoffice_path=None):
     返回:
         转换后的PDF文件路径或None
     """
-    # 获取文件扩展名
+    # 获取文件扩展名和输出路径
     file_ext = Path(input_file).suffix.lower()
     file_name = os.path.splitext(os.path.basename(input_file))[0]
     output_dir = os.path.dirname(input_file)

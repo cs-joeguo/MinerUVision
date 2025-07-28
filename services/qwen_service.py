@@ -1,7 +1,12 @@
 '''
-Qwen2.5-VL模型服务
-提供图片描述生成功能
+Descripttion: Qwen2.5-VL模型服务，提供图片描述生成功能
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:23
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:13:01
 '''
+
 import logging
 import hashlib
 import io
@@ -33,6 +38,7 @@ def load_qwen_model(model_path=QWEN_MODEL_PATH):
     global qwen_model, qwen_processor
     try:
         with model_lock:
+            # 只加载一次模型和处理器
             if qwen_model is None or qwen_processor is None:
                 logger.info(f"开始加载Qwen2.5-VL模型: {model_path}")
                 qwen_model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
@@ -75,7 +81,7 @@ def qwen_describe_image(image, model, processor):
         }
     ]
     
-    # 处理输入
+    # 处理输入，生成模型输入格式
     text = processor.apply_chat_template(
         messages, tokenize=False, add_generation_prompt=True
     )
@@ -93,7 +99,7 @@ def qwen_describe_image(image, model, processor):
     inputs = inputs.to(device)
     
     # 模型生成
-    generated_ids = model.generate(** inputs, max_new_tokens=512)
+    generated_ids = model.generate(**inputs, max_new_tokens=512)
     generated_ids_trimmed = [
         out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
     ]

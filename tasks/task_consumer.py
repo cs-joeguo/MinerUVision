@@ -1,7 +1,12 @@
 '''
-文本提取任务消费者
-负责处理文本提取任务队列中的任务
+Descripttion: 文本提取任务消费者，负责处理文本提取任务队列中的任务
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:24
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:13:25
 '''
+
 import logging
 import json
 import asyncio
@@ -54,7 +59,7 @@ async def process_task(task):
             process_params.get("libreoffice_path")
         )
         
-        # 处理文本提取
+        # 处理文本提取，根据use_remote选择本地或远程
         if use_remote:
             remote_result = await process_remotely(request_id, preprocessed["processed_path"], process_params)
             logger.info(f"远程处理完成: {request_id}，设备: {remote_result['device_name']}")
@@ -80,6 +85,7 @@ async def process_task(task):
                     with open(local_result["log_file"], "r") as f:
                         log_content = f.read()
                 
+                # 清理临时目录
                 if output_dir.exists():
                     shutil.rmtree(output_dir)
                     logger.info(f"清理临时目录: {output_dir}")
@@ -119,7 +125,7 @@ async def process_task(task):
             result["pdf_url"] = pdf_url
             result["converted_from_office"] = True
 
-        # redis_client.set(TASK_RESULT_KEY_PREFIX + request_id, json.dumps(result))
+        # 推送结果到Redis队列
         redis_client.rpush(TASK_RESULT_KEY_PREFIX + request_id, json.dumps(result))
         return result
 
@@ -138,7 +144,7 @@ async def process_task(task):
             "request_id": request_id,
             "error": str(e)
         }
-        # redis_client.set(TASK_RESULT_KEY_PREFIX + request_id, json.dumps(error_result))
+        # 推送错误结果到Redis队列
         redis_client.rpush(TASK_RESULT_KEY_PREFIX + request_id, json.dumps(error_result))
         return error_result
 

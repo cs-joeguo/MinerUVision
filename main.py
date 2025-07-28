@@ -1,15 +1,12 @@
 '''
-Descripttion: 
+Descripttion: 应用入口，初始化FastAPI应用并注册路由
 Author: Joe Guo
 version: 
 Date: 2025-07-25 16:56:56
 LastEditors: Joe Guo
-LastEditTime: 2025-07-25 17:03:21
+LastEditTime: 2025-07-28 17:14:24
 '''
-'''
-应用入口
-初始化FastAPI应用并注册路由
-'''
+
 import logging
 import sys
 from fastapi import FastAPI
@@ -57,5 +54,6 @@ async def shutdown_event():
     logger.info("应用已关闭")
 
 if __name__ == "__main__":
+    # 仅作为脚本运行时启动uvicorn服务
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)

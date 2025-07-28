@@ -1,7 +1,12 @@
 '''
-Redis操作工具函数
-包括客户端初始化、任务队列操作等功能
+Descripttion: Redis操作工具函数，包括客户端初始化、任务队列操作等功能
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:22
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:14:09
 '''
+
 import logging
 import json
 import redis
@@ -39,6 +44,7 @@ def add_extract_task(task_data: dict) -> str:
     try:
         task_id = task_data.get("request_id")
         logger.info(f"准备添加文本提取任务到队列: {task_id}")
+        # 将任务数据序列化后推送到Redis队列
         redis_client.rpush(TASK_QUEUE_NAME, json.dumps(task_data))
         logger.info(f"添加文本提取任务到队列: {task_id}")
         return task_id
@@ -65,6 +71,7 @@ def get_extract_task_result(task_id: str, timeout: int = 60) -> dict:
         if key_type != b'list' and redis_client.exists(key):
             logger.error(f"Redis键类型错误: {key} 类型为 {key_type}")
             return {"status": "error", "message": f"Redis key type error: {key_type.decode()}"}
+        # 阻塞式弹出结果
         result = redis_client.blpop(key, timeout=timeout)
         if result:
             logger.info(f"获取到文本提取任务结果: {task_id}")
@@ -88,6 +95,7 @@ def add_image_task(task_data: dict) -> str:
     try:
         task_id = task_data.get("request_id")
         logger.info(f"准备添加图片描述任务到队列: {task_id}")
+        # 将任务数据序列化后推送到图片任务队列
         redis_client.rpush(IMAGE_TASK_QUEUE_NAME, json.dumps(task_data))
         logger.info(f"添加图片描述任务到队列: {task_id}")
         return task_id
@@ -114,6 +122,7 @@ def get_image_task_result(task_id: str, timeout: int = 60) -> dict:
         if key_type != b'list' and redis_client.exists(key):
             logger.error(f"Redis键类型错误: {key} 类型为 {key_type}")
             return {"status": "error", "message": f"Redis key type error: {key_type.decode()}"}
+        # 阻塞式弹出结果
         result = redis_client.blpop(key, timeout=timeout)
         if result:
             logger.info(f"获取到图片描述任务结果: {task_id}")

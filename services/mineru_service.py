@@ -1,7 +1,12 @@
 '''
-MinerU处理服务
-提供本地和远程MinerU处理功能
+Descripttion: MinerU处理服务，提供本地和远程MinerU处理功能
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:23
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:12:35
 '''
+
 import logging
 import os
 import subprocess
@@ -21,10 +26,10 @@ from config import (
 logger = logging.getLogger("mineru_service")
 
 # GPU状态管理
-gpu_status = []
-sync_gpu_lock = asyncio.Lock()
-async_gpu_lock = asyncio.Lock()
-gpu_semaphore = None
+gpu_status = []  # 记录所有GPU的状态
+sync_gpu_lock = asyncio.Lock()  # 用于同步GPU资源初始化的锁
+async_gpu_lock = asyncio.Lock() # 用于异步操作GPU状态的锁
+gpu_semaphore = None            # 控制并发GPU任务的信号量
 
 async def init_gpu_resources():  # 改为异步函数
     global gpu_status, gpu_semaphore
@@ -81,7 +86,7 @@ async def process_locally(request_id: str, input_path: Path, output_dir: Path, p
     global gpu_status, gpu_semaphore
     
 
-    await init_gpu_resources()  # 添加 await 关键字
+    await init_gpu_resources()  # 初始化GPU资源
     if not gpu_status:
         logger.error("未检测到可用GPU")
         raise RuntimeError("未检测到可用GPU")
@@ -126,9 +131,11 @@ async def process_locally(request_id: str, input_path: Path, output_dir: Path, p
             mineru_output_dir.mkdir(exist_ok=True)
             logger.info(f"创建输出目录: {mineru_output_dir}")
             
+            # 设置环境变量，优化CUDA分配
             os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
             os.environ["CUDA_LAUNCH_BLOCKING"] = "1"
             
+            # 构建命令行参数
             cmd = [
                 MINERU_EXECUTABLE,
                 "-p", str(input_path),
@@ -149,6 +156,7 @@ async def process_locally(request_id: str, input_path: Path, output_dir: Path, p
             if params["backend"] == "vlm-sglang-client" and params["sglang_url"]:
                 cmd.extend(["-u", params["sglang_url"]])
             
+            # 获取可用内存信息
             available_memory = "N/A"
             try:
                 gpu_info = await get_available_gpus(min_required_memory)
@@ -163,6 +171,7 @@ async def process_locally(request_id: str, input_path: Path, output_dir: Path, p
             sub_env = os.environ.copy()
             sub_env["CUDA_VISIBLE_DEVICES"] = str(selected_gpu_id)
             
+            # 启动子进程执行命令
             with open(log_file, "w") as log_f:
                 process = subprocess.Popen(cmd, stdout=log_f, stderr=subprocess.STDOUT, text=True, env=sub_env)
                 process.wait()
@@ -192,6 +201,7 @@ async def process_locally(request_id: str, input_path: Path, output_dir: Path, p
             }
         
         finally:
+            # 释放GPU资源
             if selected_gpu_id is not None:
                 async with async_gpu_lock:
                     for gpu in gpu_status:

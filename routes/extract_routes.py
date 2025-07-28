@@ -1,7 +1,12 @@
 '''
-文本提取接口
-提供文件上传和文本提取功能
+Descripttion: 文本提取接口，提供文件上传和文本提取功能
+Author: Joe Guo
+version: 
+Date: 2025-07-28 14:19:24
+LastEditors: Joe Guo
+LastEditTime: 2025-07-28 17:11:30
 '''
+
 import logging
 import uuid
 import os
@@ -53,9 +58,9 @@ async def extract_text(
         
         # 保存上传的文件到临时位置
         with NamedTemporaryFile(delete=False, suffix=os.path.splitext(file.filename)[1]) as temp_file:
-            file_bytes = await file.read()
-            temp_file.write(file_bytes)
-            temp_file_path = temp_file.name
+            file_bytes = await file.read()  # 读取上传文件内容
+            temp_file.write(file_bytes)     # 写入临时文件
+            temp_file_path = temp_file.name # 获取临时文件路径
             logger.info(f"文件已保存到临时路径: {temp_file_path}，大小: {len(file_bytes)} 字节")
         
         # 准备任务参数
@@ -108,7 +113,7 @@ async def get_extract_result(request_id: str, timeout: int = 60):
     """
     try:
         logger.info(f"收到获取文本提取结果请求: request_id={request_id}, timeout={timeout}")
-        result = get_extract_task_result(request_id, timeout)
+        result = get_extract_task_result(request_id, timeout)  # 查询任务结果
         # logger.info(f"获取结果: {result}")
         return result
     except Exception as e:
