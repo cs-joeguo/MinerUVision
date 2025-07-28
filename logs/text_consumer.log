@@ -1,0 +1,31 @@
+INFO:task_consumer:文本提取任务消费者已启动
+INFO:task_consumer:开始处理任务: 54764e1c-0c87-4ee9-b45b-7a5f70558362
+INFO:file_utils:检测到Office文件 tmphvft3z9b.docx，开始转换为PDF
+INFO:office_service:正在检测操作系统: Linux，查找LibreOffice路径
+INFO:office_service:检测到LibreOffice路径: /usr/bin/libreoffice
+INFO:office_service:开始将文件 /tmp/tmphvft3z9b.docx 转换为PDF，输出目录: /tmp
+INFO:office_service:LibreOffice转换命令执行完成，返回码: 0
+INFO:office_service:文件 /tmp/tmphvft3z9b.docx 已成功转换为PDF: /tmp/tmphvft3z9b.pdf
+INFO:mineru_service:动态检测到 2 个可用GPU: [0, 1]
+INFO:mineru_service:可用GPU列表: [(0, 23684.0), (1, 23705.0)]
+INFO:mineru_service:尝试第 1 次获取可用GPU，结果: [(0, 23684.0), (1, 23705.0)]
+INFO:mineru_service:分配GPU 1 处理任务 54764e1c-0c87-4ee9-b45b-7a5f70558362
+INFO:mineru_service:创建输出目录: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output
+INFO:mineru_service:可用GPU列表: [(0, 23684.0)]
+INFO:mineru_service:在本地执行命令: mineru -p /tmp/tmphvft3z9b.pdf -o /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output -m auto -b vlm-sglang-engine -l ch --formula true --table true --device cuda:0 --source local，使用实际显卡ID: 1，可用内存: 23.13 GB
+INFO:mineru_service:MinerU本地处理完成，返回码: 0
+INFO:mineru_service:释放GPU 1，状态重置为idle
+INFO:mineru_service:已释放GPU 1 资源
+INFO:task_consumer:本地处理完成: 54764e1c-0c87-4ee9-b45b-7a5f70558362，使用显卡: 1
+INFO:minio_utils:准备上传文件到MinIO: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b_content_list.json -> 2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b_content_list.json
+INFO:minio_utils:文件上传成功: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b_content_list.json -> http://192.168.230.27:9000/mineru/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b_content_list.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20250728%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250728T060658Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=50a30edea3f449d48c7ed64e632a9ead2761b90e60ffb4a8b9f91f14fbaa4b98
+INFO:minio_utils:准备上传文件到MinIO: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b_model_output.txt -> 2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b_model_output.txt
+INFO:minio_utils:文件上传成功: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b_model_output.txt -> http://192.168.230.27:9000/mineru/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b_model_output.txt?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20250728%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250728T060658Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=87db9380937224c5d15eb520a56fe2a523c880fc461d495e7448065d61b22c5c
+INFO:minio_utils:准备上传文件到MinIO: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b.md -> 2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b.md
+INFO:minio_utils:文件上传成功: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b.md -> http://192.168.230.27:9000/mineru/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b.md?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20250728%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250728T060659Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=8441b182ee58939fba6e85759cd6d0e813c6d6b48bfe6e1ad9664cee29f3eff0
+INFO:minio_utils:准备上传文件到MinIO: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b_middle.json -> 2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b_middle.json
+INFO:minio_utils:文件上传成功: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b/vlm/tmphvft3z9b_middle.json -> http://192.168.230.27:9000/mineru/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/output/tmphvft3z9b_middle.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20250728%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250728T060659Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=4b4a6fe49067bc425bc4036ef5b4b420bc8b5ebc86d37949402610c084018c31
+INFO:task_consumer:清理临时目录: /data/mineru_output/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362
+INFO:minio_utils:准备上传文件到MinIO: /tmp/tmphvft3z9b.pdf -> 2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/pdf_output/tmphvft3z9b.pdf
+INFO:minio_utils:文件上传成功: /tmp/tmphvft3z9b.pdf -> http://192.168.230.27:9000/mineru/2025-07-28/54764e1c-0c87-4ee9-b45b-7a5f70558362/pdf_output/tmphvft3z9b.pdf?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=admin%2F20250728%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20250728T060659Z&X-Amz-Expires=604800&X-Amz-SignedHeaders=host&X-Amz-Signature=9d46be965a104d1d752acbdec23f0500d5e8da9cd6ec5e85ecb2d9b1faf88498
+INFO:task_consumer:任务处理完成: 54764e1c-0c87-4ee9-b45b-7a5f70558362

@@ -1,0 +1,57 @@
+/var/www/test/demo/main.py:45: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+/var/www/test/demo/main.py:52: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("shutdown")
+INFO:     Started server process [2690571]
+INFO:     Waiting for application startup.
+2025-07-28 14:05:08,709 - mineru_service - INFO - 应用启动中...
+2025-07-28 14:05:08,709 - mineru_service - INFO - 应用启动完成
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-07-28 14:05:17,481 - extract_routes - INFO - 收到获取文本提取结果请求: request_id=cecbb174-c295-4feb-ab79-364c72d8c0a2, timeout=60
+2025-07-28 14:05:17,481 - redis_utils - INFO - 准备获取文本提取任务结果: cecbb174-c295-4feb-ab79-364c72d8c0a2, timeout=60
+2025-07-28 14:06:17,562 - redis_utils - INFO - 文本提取任务处理中: cecbb174-c295-4feb-ab79-364c72d8c0a2
+INFO:     192.168.101.100:50955 - "GET /extract-result?request_id=cecbb174-c295-4feb-ab79-364c72d8c0a2 HTTP/1.1" 200 OK
+2025-07-28 14:06:21,673 - extract_routes - INFO - 收到文本提取请求: 54764e1c-0c87-4ee9-b45b-7a5f70558362, 文件名: 技术建议书.docx
+2025-07-28 14:06:21,676 - extract_routes - INFO - 文件已保存到临时路径: /tmp/tmphvft3z9b.docx，大小: 2717248 字节
+2025-07-28 14:06:21,676 - extract_routes - INFO - 任务参数: {'method': 'auto', 'backend': 'vlm-sglang-engine', 'lang': 'ch', 'formula': True, 'table': True, 'start_page': None, 'end_page': None, 'sglang_url': None, 'source': 'local', 'return_all_files': True}
+2025-07-28 14:06:21,676 - extract_routes - INFO - 任务数据已准备: {'request_id': '54764e1c-0c87-4ee9-b45b-7a5f70558362', 'input_path': '/tmp/tmphvft3z9b.docx', 'process_params': {'method': 'auto', 'backend': 'vlm-sglang-engine', 'lang': 'ch', 'formula': True, 'table': True, 'start_page': None, 'end_page': None, 'sglang_url': None, 'source': 'local', 'return_all_files': True}, 'use_remote': False}
+2025-07-28 14:06:21,676 - redis_utils - INFO - 准备添加文本提取任务到队列: 54764e1c-0c87-4ee9-b45b-7a5f70558362
+2025-07-28 14:06:21,676 - redis_utils - INFO - 添加文本提取任务到队列: 54764e1c-0c87-4ee9-b45b-7a5f70558362
+2025-07-28 14:06:21,676 - extract_routes - INFO - 任务已添加到队列，task_id: 54764e1c-0c87-4ee9-b45b-7a5f70558362
+INFO:     192.168.101.100:51004 - "POST /extract-text HTTP/1.1" 200 OK
+2025-07-28 14:06:31,514 - extract_routes - INFO - 收到获取文本提取结果请求: request_id=54764e1c-0c87-4ee9-b45b-7a5f70558362, timeout=60
+2025-07-28 14:06:31,514 - redis_utils - INFO - 准备获取文本提取任务结果: 54764e1c-0c87-4ee9-b45b-7a5f70558362, timeout=60
+2025-07-28 14:06:59,054 - redis_utils - INFO - 获取到文本提取任务结果: 54764e1c-0c87-4ee9-b45b-7a5f70558362
+INFO:     192.168.101.100:51744 - "GET /extract-result?request_id=54764e1c-0c87-4ee9-b45b-7a5f70558362 HTTP/1.1" 200 OK
+2025-07-28 14:07:15,521 - image_routes - INFO - 收到图片描述请求: 13fc0285-61af-4ba1-b986-397c2fd52675, 文件名: 技术建议书.docx
+2025-07-28 14:07:15,527 - image_routes - INFO - 文件已保存到临时路径: /tmp/tmpvzmu4mc_.docx，大小: 2717248 字节
+2025-07-28 14:07:15,528 - image_routes - INFO - 任务数据已准备: {'request_id': '13fc0285-61af-4ba1-b986-397c2fd52675', 'input_path': '/tmp/tmpvzmu4mc_.docx', 'libreoffice_path': None}
+2025-07-28 14:07:15,528 - redis_utils - INFO - 准备添加图片描述任务到队列: 13fc0285-61af-4ba1-b986-397c2fd52675
+2025-07-28 14:07:15,528 - redis_utils - INFO - 添加图片描述任务到队列: 13fc0285-61af-4ba1-b986-397c2fd52675
+2025-07-28 14:07:15,529 - image_routes - INFO - 任务已添加到队列，task_id: 13fc0285-61af-4ba1-b986-397c2fd52675
+INFO:     192.168.101.100:52140 - "POST /describe-image HTTP/1.1" 200 OK
+2025-07-28 14:07:23,183 - image_routes - INFO - 收到获取图片描述结果请求: request_id=a6f98bc3-f3b5-4fae-8a1c-d71952818357, timeout=60
+2025-07-28 14:07:23,183 - redis_utils - INFO - 准备获取图片描述任务结果: a6f98bc3-f3b5-4fae-8a1c-d71952818357, timeout=60
+2025-07-28 14:08:23,200 - redis_utils - INFO - 图片描述任务处理中: a6f98bc3-f3b5-4fae-8a1c-d71952818357
+INFO:     192.168.101.100:52219 - "GET /image-result?request_id=a6f98bc3-f3b5-4fae-8a1c-d71952818357 HTTP/1.1" 200 OK
+2025-07-28 14:08:23,201 - image_routes - INFO - 收到获取图片描述结果请求: request_id=13fc0285-61af-4ba1-b986-397c2fd52675, timeout=60
+2025-07-28 14:08:23,201 - redis_utils - INFO - 准备获取图片描述任务结果: 13fc0285-61af-4ba1-b986-397c2fd52675, timeout=60
+2025-07-28 14:08:23,201 - redis_utils - INFO - 获取到图片描述任务结果: 13fc0285-61af-4ba1-b986-397c2fd52675
+INFO:     192.168.101.100:52315 - "GET /image-result?request_id=13fc0285-61af-4ba1-b986-397c2fd52675 HTTP/1.1" 200 OK
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+2025-07-28 14:11:20,087 - mineru_service - INFO - 应用关闭中...
+2025-07-28 14:11:20,088 - mineru_service - INFO - 应用已关闭
+INFO:     Application shutdown complete.
+INFO:     Finished server process [2690571]
