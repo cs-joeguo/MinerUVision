@@ -15,12 +15,11 @@ from routes.device_routes import router as device_router
 from routes.extract_routes import router as extract_router
 from routes.image_routes import router as image_router
 
-# 初始化日志，输出到文件和控制台
+# 初始化日志，仅输出到控制台
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
     handlers=[
-        logging.FileHandler("app.log", encoding="utf-8"),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -54,6 +53,5 @@ async def shutdown_event():
     logger.info("应用已关闭")
 
 if __name__ == "__main__":
-    # 仅作为脚本运行时启动uvicorn服务
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)
