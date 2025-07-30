@@ -23,14 +23,14 @@ logger = logging.getLogger("extract_routes")
 async def extract_text(
     file: UploadFile = File(...),
     method: str = Form("auto"),
-    backend: str = Form("auto"),
-    lang: str = Form("zh"),
+    backend: str = Form("vlm-sglang-engine"),
+    lang: str = Form("ch"),
     formula: bool = Form(True),
     table: bool = Form(True),
     start_page: int = Form(None),
     end_page: int = Form(None),
     sglang_url: str = Form(None),
-    source: str = Form("user_upload"),
+    source: str = Form("local"),
     return_all_files: bool = Form(False),
     use_remote: bool = Form(False)
 ):
