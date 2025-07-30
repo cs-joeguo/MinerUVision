@@ -1,16 +1,13 @@
 '''
 Descripttion: 应用入口，初始化FastAPI应用并注册路由
 Author: Joe Guo
-version: 
+version: 2.0
 Date: 2025-07-25 16:56:56
 LastEditors: Joe Guo
-LastEditTime: 2025-07-28 17:14:24
+LastEditTime: 2025-07-30 17:05:27
 '''
 
 
-'''
-主应用入口
-'''
 import logging
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware

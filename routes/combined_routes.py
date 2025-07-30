@@ -1,7 +1,12 @@
 '''
-复合任务接口
-提供同时处理文本提取和图片描述的复合任务功能
+Descripttion: 复合任务接口：提供同时处理文本提取和图片描述的复合任务功能
+Author: Joe Guo
+version: 2.0
+Date: 2025-07-30 16:20:16
+LastEditors: Joe Guo
+LastEditTime: 2025-07-30 17:03:04
 '''
+
 import logging
 import uuid
 import os

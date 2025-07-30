@@ -1,7 +1,13 @@
 '''
-复合任务消费者
-负责处理复合任务队列中的任务，同时执行文本提取和图片描述
+Descripttion: 复合任务消费者：负责处理复合任务队列中的任务，同时执行文本提取和图片描述
+Author: Joe Guo
+version: 2.0
+Date: 2025-07-30 16:16:46
+LastEditors: Joe Guo
+LastEditTime: 2025-07-30 17:04:05
 '''
+
+
 import logging
 import json
 import asyncio
