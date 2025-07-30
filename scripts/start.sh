@@ -1,7 +1,7 @@
 #!/bin/bash
 ###
  # @Descripttion: 启动项目（API服务 + 图片描述消费者 + 文本提取消费者 + 复合任务消费者）
- # @Author: Your Name
+ # @Author: Joe Guo
  # @version: 1.2
  # @Date: 2025-07-30
 ### 

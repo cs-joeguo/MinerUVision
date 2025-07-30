@@ -1,7 +1,15 @@
 #!/bin/bash
 ###
+ # @Descripttion: 
+ # @Author: Joe Guo
+ # @version: 
+ # @Date: 2025-07-28 14:19:24
+ # @LastEditors: Joe Guo
+ # @LastEditTime: 2025-07-30 17:29:46
+### 
+###
  # @Descripttion: 停止项目所有服务（API + 消费者）
- # @Author: Your Name
+ # @Author: Joe Guo
 ###
 
 # 函数：停止指定进程
