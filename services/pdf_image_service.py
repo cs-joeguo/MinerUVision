@@ -1,12 +1,8 @@
 '''
 Descripttion: PDF图片处理相关服务
 Author: Joe Guo
-version: 
-Date: 2025-08-01 14:27:20
-LastEditors: Joe Guo
-LastEditTime: 2025-08-01 15:05:20
+Date: 2025-08-01
 '''
-
 
 import os
 import tempfile

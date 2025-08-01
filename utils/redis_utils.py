@@ -1,13 +1,7 @@
 '''
-Descripttion: Redis操作工具函数，包括客户端初始化、任务队列操作等功能
-Author: Joe Guo
-version: 
-Date: 2025-07-30 16:07:26
-LastEditors: Joe Guo
-LastEditTime: 2025-08-01 15:06:25
+Redis操作工具函数
+包括客户端初始化、任务队列操作等功能
 '''
-
-
 import logging
 import json
 import redis
