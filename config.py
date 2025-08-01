@@ -4,7 +4,7 @@ Author: Joe Guo
 version: 
 Date: 2025-07-25 16:57:01
 LastEditors: Joe Guo
-LastEditTime: 2025-07-28 17:14:19
+LastEditTime: 2025-07-25 16:57:21
 '''
 
 import os
@@ -53,6 +53,8 @@ TASK_QUEUE_NAME = "mineru_task_queue"
 TASK_RESULT_KEY_PREFIX = "mineru_task_result:"
 IMAGE_TASK_QUEUE_NAME = "image_description_queue"
 IMAGE_TASK_RESULT_KEY_PREFIX = "image_desc_result:"
+COMBINED_TASK_QUEUE_NAME = "combined_task_queue"
+COMBINED_TASK_RESULT_KEY_PREFIX = "combined_task_result:"
 
 # 支持的文件类型定义
 SUPPORTED_FILE_TYPES = {

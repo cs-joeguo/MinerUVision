@@ -69,6 +69,9 @@ async def get_available_gpus(min_memory_mb):
                     logger.warning(f"检测GPU {gpu['id']} 状态失败: {e}")
         logger.info(f"可用GPU列表: {available}")
         return available
+        
+
+            # ... 后续逻辑不变
 
 async def process_locally(request_id: str, input_path: Path, output_dir: Path, params: dict) -> dict:
     """
@@ -84,21 +87,23 @@ async def process_locally(request_id: str, input_path: Path, output_dir: Path, p
         处理结果字典
     """
     global gpu_status, gpu_semaphore
+    logger.info(f"进入process_locally函数: request_id={request_id}")  # 新增
     
-
+    logger.info(f"开始处理请求 {request_id}，输入路径: {input_path}, 输出目录: {output_dir}, 参数: {params}")
     await init_gpu_resources()  # 初始化GPU资源
     if not gpu_status:
         logger.error("未检测到可用GPU")
         raise RuntimeError("未检测到可用GPU")
 
-    min_memory_ratio = 0.7
+    min_memory_ratio = 0.6
     async with async_gpu_lock:
         if gpu_status:
             avg_total_memory = sum(g["memory_total"] for g in gpu_status) / len(gpu_status)
             min_required_memory = int(avg_total_memory * min_memory_ratio)
         else:
             min_required_memory = 12288
-    
+    logger.info(f"每个GPU的最小可用内存要求: {min_required_memory} MB")
+
     async with gpu_semaphore:
         selected_gpu_id = None
         max_attempts = 10

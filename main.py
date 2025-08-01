@@ -7,36 +7,44 @@ LastEditors: Joe Guo
 LastEditTime: 2025-07-28 17:14:24
 '''
 
+
+'''
+主应用入口
+'''
 import logging
-import sys
 from fastapi import FastAPI
-from routes.health_routes import router as health_router
-from routes.device_routes import router as device_router
+from fastapi.middleware.cors import CORSMiddleware
 from routes.extract_routes import router as extract_router
 from routes.image_routes import router as image_router
+from routes.combined_routes import router as combined_router  # 新增复合任务路由
 
-# 初始化日志，仅输出到控制台
+# 配置日志
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    handlers=[
-        logging.StreamHandler(sys.stdout)
-    ]
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 )
-logger = logging.getLogger("mineru_service")
+logger = logging.getLogger("main")
 
-# 初始化FastAPI应用
+# 创建FastAPI应用
 app = FastAPI(
-    title="MinerU API Service with MinIO and Qwen-VL",
-    version="2.2",
-    description="提供PDF/图片文件处理和图片描述生成功能的API服务"
+    title="MinerUVision API",
+    description="提供文本提取和图片描述功能的API服务",
+    version="1.0.0"
+)
+
+# 配置CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # 注册路由
-app.include_router(health_router)
-app.include_router(device_router)
-app.include_router(extract_router)
-app.include_router(image_router)
+app.include_router(extract_router, tags=["文本提取"])
+app.include_router(image_router, tags=["图片描述"])
+app.include_router(combined_router, tags=["复合任务"])  # 新增复合任务路由
 
 @app.on_event("startup")
 async def startup_event():
@@ -54,4 +62,5 @@ async def shutdown_event():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8001)
+    logger.info("启动MinerUVision API服务...")
+    uvicorn.run("main:app", host="0.0.0.0", port=8001, reload=True)

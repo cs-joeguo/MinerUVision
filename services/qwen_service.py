@@ -218,3 +218,14 @@ def process_single_image(image_path, model, processor):
     except Exception as e:
         logger.error(f"处理图片 {image_path} 时出错: {str(e)}")
         return None
+
+# 全局模型变量（复用Qwen模型）
+qwen_model = None
+qwen_processor = None
+
+def load_qwen_model_once():
+    """仅加载一次Qwen模型（单例模式）"""
+    global qwen_model, qwen_processor
+    if qwen_model is None or qwen_processor is None:
+        qwen_model, qwen_processor = load_qwen_model()  # 假设原文件已有load_qwen_model函数
+    return qwen_model, qwen_processor
