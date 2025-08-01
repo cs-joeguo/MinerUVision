@@ -4,7 +4,7 @@ Author: Joe Guo
 version: 
 Date: 2025-07-25 16:59:03
 LastEditors: Joe Guo
-LastEditTime: 2025-07-25 16:59:09
+LastEditTime: 2025-08-01 10:00:00
 '''
 
 import logging
@@ -38,18 +38,22 @@ if not minio_client.bucket_exists(MINIO_BUCKET):
 else:
     logger.info(f"MinIO存储桶已存在: {MINIO_BUCKET}")
 
-def upload_to_minio(request_id: str, file_path: Path, object_prefix: str = "") -> str:
+def upload_to_minio(request_id: str, file_path: [str, Path], object_prefix: str = "") -> str:
     """
     上传文件到MinIO
     
     参数:
         request_id: 请求ID
-        file_path: 本地文件路径
+        file_path: 本地文件路径（可以是字符串或Path对象）
         object_prefix: 对象前缀
         
     返回:
         预签名的文件URL
     """
+    # 确保file_path是Path对象
+    if isinstance(file_path, str):
+        file_path = Path(file_path)
+    
     # 构建对象名，包含日期、请求ID、前缀和文件名
     today = datetime.date.today().isoformat()
     object_name = f"{today}/{request_id}/{object_prefix}/{file_path.name}"
@@ -76,18 +80,22 @@ def upload_to_minio(request_id: str, file_path: Path, object_prefix: str = "") -
         logger.error(f"MinIO上传失败: {e}")
         raise HTTPException(status_code=500, detail=f"MinIO上传失败: {e.message}")
 
-def upload_directory_to_minio(request_id: str, dir_path: Path, prefix: str = "") -> dict:
+def upload_directory_to_minio(request_id: str, dir_path: [str, Path], prefix: str = "") -> dict:
     """
     上传目录到MinIO
     
     参数:
         request_id: 请求ID
-        dir_path: 本地目录路径
+        dir_path: 本地目录路径（可以是字符串或Path对象）
         prefix: 前缀
         
     返回:
         包含文件名和对应URL的字典
     """
+    # 确保dir_path是Path对象
+    if isinstance(dir_path, str):
+        dir_path = Path(dir_path)
+    
     result = {}
     
     # 遍历目录下所有文件，递归上传

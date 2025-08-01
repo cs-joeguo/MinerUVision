@@ -1,12 +1,14 @@
 '''
-Descripttion: 项目所有配置参数
+Descripttion: 
 Author: Joe Guo
 version: 
 Date: 2025-07-25 16:57:01
 LastEditors: Joe Guo
-LastEditTime: 2025-07-30 17:05:18
+LastEditTime: 2025-08-01 15:20:41
 '''
-
+'''
+项目所有配置参数
+'''
 import os
 import platform
 from pathlib import Path

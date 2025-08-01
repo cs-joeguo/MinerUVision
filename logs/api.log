@@ -12,12 +12,24 @@
         [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
         
   @app.on_event("shutdown")
-2025-07-30 16:40:24,868 - main - INFO - 启动MinerUVision API服务...
+2025-08-01 14:31:47,129 - main - INFO - 启动MinerUVision API服务...
 INFO:     Will watch for changes in these directories: ['/var/www/test/MinerUVision']
 INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
-INFO:     Started reloader process [295538] using StatReload
-INFO:     Started server process [295556]
+INFO:     Started reloader process [1383059] using StatReload
+INFO:     Started server process [1383065]
 INFO:     Waiting for application startup.
-2025-07-30 16:40:25,157 - main - INFO - 应用启动中...
-2025-07-30 16:40:25,157 - main - INFO - 应用启动完成
+2025-08-01 14:31:47,390 - main - INFO - 应用启动中...
+2025-08-01 14:31:47,390 - main - INFO - 应用启动完成
 INFO:     Application startup complete.
+2025-08-01 14:53:11,061 - combined_routes - INFO - 收到复合任务请求: 2201cc9e-eeeb-4ca9-885c-17c232c411b0, 文件名: 技术建议书.pdf
+2025-08-01 14:53:11,065 - combined_routes - INFO - 文件已保存到临时路径: /tmp/tmpwzmm151r.pdf，大小: 1734577 字节
+2025-08-01 14:53:11,065 - combined_routes - INFO - 文本提取任务参数: {'method': 'auto', 'backend': 'vlm-sglang-engine', 'lang': 'ch', 'formula': True, 'table': True, 'start_page': None, 'end_page': None, 'sglang_url': None, 'source': 'local', 'return_all_files': False}
+2025-08-01 14:53:11,065 - combined_routes - INFO - 复合任务数据已准备: {'request_id': '2201cc9e-eeeb-4ca9-885c-17c232c411b0', 'input_path': '/tmp/tmpwzmm151r.pdf', 'extract_params': {'method': 'auto', 'backend': 'vlm-sglang-engine', 'lang': 'ch', 'formula': True, 'table': True, 'start_page': None, 'end_page': None, 'sglang_url': None, 'source': 'local', 'return_all_files': False}, 'use_remote': False, 'libreoffice_path': None}
+2025-08-01 14:53:11,065 - redis_utils - INFO - 准备添加复合任务到队列: 2201cc9e-eeeb-4ca9-885c-17c232c411b0
+2025-08-01 14:53:11,070 - redis_utils - INFO - 添加复合任务到队列: 2201cc9e-eeeb-4ca9-885c-17c232c411b0
+2025-08-01 14:53:11,070 - combined_routes - INFO - 复合任务已添加到队列，task_id: 2201cc9e-eeeb-4ca9-885c-17c232c411b0
+INFO:     192.168.101.100:54673 - "POST /combined-task HTTP/1.1" 200 OK
+2025-08-01 14:54:53,856 - combined_routes - INFO - 收到获取复合任务结果请求: request_id=2201cc9e-eeeb-4ca9-885c-17c232c411b0, timeout=60
+2025-08-01 14:54:53,857 - redis_utils - INFO - 准备获取复合任务结果: 2201cc9e-eeeb-4ca9-885c-17c232c411b0, timeout=60
+2025-08-01 14:54:53,858 - redis_utils - INFO - 获取到复合任务结果: 2201cc9e-eeeb-4ca9-885c-17c232c411b0
+INFO:     192.168.101.100:55525 - "GET /combined-result?request_id=2201cc9e-eeeb-4ca9-885c-17c232c411b0 HTTP/1.1" 200 OK
