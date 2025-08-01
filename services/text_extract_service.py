@@ -1,12 +1,8 @@
 '''
 Descripttion: 文本提取相关服务
 Author: Joe Guo
-version: 
-Date: 2025-08-01 14:27:32
-LastEditors: Joe Guo
-LastEditTime: 2025-08-01 15:05:41
+Date: 2025-08-01
 '''
-
 
 import logging
 from pathlib import Path

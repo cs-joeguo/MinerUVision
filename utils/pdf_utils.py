@@ -1,12 +1,8 @@
 '''
 Descripttion: PDF处理相关工具函数
 Author: Joe Guo
-version: 
-Date: 2025-08-01 14:27:04
-LastEditors: Joe Guo
-LastEditTime: 2025-08-01 15:05:58
+Date: 2025-08-01
 '''
-
 
 import os
 import subprocess
